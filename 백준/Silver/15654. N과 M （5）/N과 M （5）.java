@@ -26,12 +26,12 @@ public class Main {
 
         Arrays.sort(arr);
         
-        dfs(0,0);
+        dfs(0);
         
         System.out.println(sb);
     }
 
-    public static void dfs(int idx, int depth) {
+    public static void dfs(int depth) {
         if(depth == M) {
             for(int val: ans) {
                 sb.append(val).append(' ');
@@ -44,7 +44,7 @@ public class Main {
             if(!visited[i]) {
                 visited[i] = true;
                 ans[depth] = arr[i];
-                dfs(i+1,depth+1);
+                dfs(depth+1);
                 visited[i] = false;
             }
         }
