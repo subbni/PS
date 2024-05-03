@@ -6,7 +6,6 @@ public class Main {
     static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
         matrix = new int[9][9];
         int last = 0;
@@ -39,7 +38,6 @@ public class Main {
                     int bit1 = checkRowAndCol(i, j);
                     int bit2 = checkSquare(i,j);
                     int bit = bit1 | bit2;
-                    if(bit1<0 && bit2<0) continue;
 
                     for(int pos=1; pos<=9; pos++) {
                         if(((bit >> pos) & 1) == 0) {
@@ -68,7 +66,6 @@ public class Main {
                 bit = bit |  (1 << matrix[i][col]);
             }
         }
-        if(bit == Math.pow(2,8)-1) return -1;
         return bit;
     }
 
@@ -82,7 +79,6 @@ public class Main {
                 }
             }
         }
-        if(bit == Math.pow(2,8)-1) return -1;
         return bit;
     }
 }
