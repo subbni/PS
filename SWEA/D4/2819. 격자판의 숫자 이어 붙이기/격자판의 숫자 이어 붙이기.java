@@ -4,7 +4,6 @@ import java.util.StringTokenizer;
 
 public class Solution {
     static int[][] board;
-    static boolean[][] visited;
     static int[] dx = {-1, 0, 1, 0}; // 상하좌우
     static int[] dy = {0, 1, 0, -1};
     static int[] arr = new int[7];
@@ -15,7 +14,6 @@ public class Solution {
         for(int t=1; t<=T; t++) {
 
             board = new int[4][4];
-            visited = new boolean[4][4];
             hs = new HashSet<>();
             StringTokenizer st;
             for(int i=0; i<4; i++) {
