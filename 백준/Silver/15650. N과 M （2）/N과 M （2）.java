@@ -4,33 +4,32 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int N;
-    static int M;
-    static int[] arr;
-    static StringBuilder sb = new StringBuilder();
-    public static void main(String[] args) throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken()); 
-        M = Integer.parseInt(st.nextToken()); 
-        arr = new int[M];
+  static int N,M;
+  static StringBuilder sb;
+  static int[] comb;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    N = Integer.parseInt(st.nextToken());
+    M = Integer.parseInt(st.nextToken());
+    sb = new StringBuilder();
+    comb = new int[M];
+    func(0,0);
+    System.out.print(sb);
+    br.close();
+  }
 
-        dfs(1,0);
-        System.out.println(sb);
+  public static void func(int cur, int idx) {
+    if(idx == M) {
+      for (int num : comb)  {
+        sb.append(num).append(' ');
+      }
+      sb.append("\n");
+      return;
     }
-
-    public static void dfs(int cur, int depth) {
-        if(depth == M) {
-            for(int val: arr) {
-                sb.append(val).append(' ');
-            }
-            sb.append('\n');
-            return;
-        }
-
-        for(int i=cur; i<=N; i++) {
-            arr[depth] = i;
-            dfs(i+1, depth+1); 
-        }
+    for(int i=cur; i<N; i++) {
+      comb[idx] = i+1;
+      func(i+1, idx+1);
     }
+  }
 }
