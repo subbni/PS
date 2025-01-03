@@ -1,10 +1,11 @@
 class Solution {
     public int[] solution(String[] park, String[] routes) {
-    boolean[][] map = new boolean[park.length][park[0].length()]; 
+    int[] answer = new int[2];
+    boolean[][] map = new boolean[park.length][3]; 
     int curX = 0; int curY = 0;
     for(int i=0; i<park.length; i++) {
         char[] rowArr = park[i].toCharArray();
-        for(int j=0; j<park[0].length(); j++) {
+        for(int j=0; j<3; j++) {
             switch(rowArr[j]) {
                 case 'S'-> {
                     map[i][j] = true;
@@ -28,7 +29,7 @@ class Solution {
             case 'S' -> nx++;
             case 'W' -> ny--;
           }
-          if(nx<0 || nx>=park.length || ny<0 || ny>=park[0].length() || !map[nx][ny]) {
+          if(nx<0 || nx>=park.length || ny<0 || ny>=3 || !map[nx][ny]) {
             possibleCommand = false;
             break;
           } 
