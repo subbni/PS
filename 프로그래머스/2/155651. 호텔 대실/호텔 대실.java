@@ -14,12 +14,12 @@ class Solution {
       int leaveMinutes = convertTimeToMinutes(book_time[i][1]);
   
       if(roomQueue.size()>0 && roomQueue.peek().peek() <= arriveMinutes) {
-        // 남는 방 존재
+        // 사용 가능한 방 존재
         Stack<Integer> availableRoom = roomQueue.poll();
         availableRoom.add(leaveMinutes+10);
         roomQueue.add(availableRoom);
       } else {
-        // 남는 or 사용한 방 없음
+        // 사용 가능한 or 사용한 방 없음
         Stack<Integer> newRoom = new Stack<>();
         newRoom.add(leaveMinutes+10);
         roomQueue.add(newRoom);
