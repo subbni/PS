@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 // Equilateral : 세 변의 길이가 같음
@@ -20,57 +21,25 @@ public class Main {
         edges[i] = Integer.parseInt(st.nextToken());
       }
 
-      if (checkIfAllSame(edges)) {
-        if (edges[0] == 0) break;
-        sb.append("Equilateral\n");
-        continue;
+      if (edges[0] == 0 && edges[0] == 0 && edges[0] == 0) {
+        break;
       }
 
-      if (checkIfInvalid(edges)) {
-        sb.append("Invalid\n");
-        continue;
-      }
+      Arrays.sort(edges);
 
-      if (checkIfAllDifferent(edges)) {
-        sb.append("Scalene\n");
+      if (edges[0] + edges[1] > edges[2]) {
+        if (edges[0] == edges[1] && edges[1] == edges[2] && edges[0] == edges[2]) {
+          sb.append("Equilateral\n");
+        } else if (edges[0] != edges[1] && edges[1] != edges[2] && edges[0] != edges[2]) {
+          sb.append("Scalene\n");
+        } else {
+          sb.append("Isosceles\n");
+        }
       } else {
-        sb.append("Isosceles\n");
+        sb.append("Invalid\n");
       }
     }
 
     System.out.print(sb);
-  }
-
-  public static boolean checkIfAllSame(int[] edges) {
-    if (edges[0] == edges[1] && edges[1] == edges[2] && edges[0] == edges[2]) {
-      return true;
-    }
-    return false;
-  }
-
-  public static boolean checkIfAllDifferent(int[] edges) {
-    if (edges[0] != edges[1] && edges[1] != edges[2] && edges[0] != edges[2]) {
-      return true;
-    }
-    return false;
-  }
-
-  public static boolean checkIfInvalid(int[] edges) {
-    int longest = Math.max(Math.max(edges[0], edges[1]), Math.max(edges[1], edges[2]));
-    int sumOfOthers = 0;
-    boolean checkedLongest = false;
-
-    for (int i=0; i<3; i++) {
-      if (longest != edges[i] || checkedLongest) {
-        sumOfOthers += edges[i];
-      } else  {
-        checkedLongest = true;
-      }
-    }
-    
-    if (longest < sumOfOthers) {
-      return false;
-    }
-    return true;
   }
 }
