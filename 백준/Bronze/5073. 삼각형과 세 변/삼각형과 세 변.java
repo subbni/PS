@@ -1,0 +1,76 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+// Equilateral : 세 변의 길이가 같음
+// Isosceles : 두 변의 길이가 같음
+// Scalene : 세 변의 길이가 모두 다름
+// Invalid : 가장 긴 변의 길이가 다른 두 변의 길이의 합보다 길거나 같다
+
+public class Main {
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringBuilder sb = new StringBuilder();
+    StringTokenizer st;
+
+    while(true) {
+      st = new StringTokenizer(br.readLine());
+      int[] edges = new int[3];
+      for (int i=0; i<3; i++) {
+        edges[i] = Integer.parseInt(st.nextToken());
+      }
+
+      if (checkIfAllSame(edges)) {
+        if (edges[0] == 0) break;
+        sb.append("Equilateral\n");
+        continue;
+      }
+
+      if (checkIfInvalid(edges)) {
+        sb.append("Invalid\n");
+        continue;
+      }
+
+      if (checkIfAllDifferent(edges)) {
+        sb.append("Scalene\n");
+      } else {
+        sb.append("Isosceles\n");
+      }
+    }
+
+    System.out.print(sb);
+  }
+
+  public static boolean checkIfAllSame(int[] edges) {
+    if (edges[0] == edges[1] && edges[1] == edges[2] && edges[0] == edges[2]) {
+      return true;
+    }
+    return false;
+  }
+
+  public static boolean checkIfAllDifferent(int[] edges) {
+    if (edges[0] != edges[1] && edges[1] != edges[2] && edges[0] != edges[2]) {
+      return true;
+    }
+    return false;
+  }
+
+  public static boolean checkIfInvalid(int[] edges) {
+    int longest = Math.max(Math.max(edges[0], edges[1]), Math.max(edges[1], edges[2]));
+    int sumOfOthers = 0;
+    boolean checkedLongest = false;
+
+    for (int i=0; i<3; i++) {
+      if (longest != edges[i] || checkedLongest) {
+        sumOfOthers += edges[i];
+      } else  {
+        checkedLongest = true;
+      }
+    }
+    
+    if (longest < sumOfOthers) {
+      return false;
+    }
+    return true;
+  }
+}
