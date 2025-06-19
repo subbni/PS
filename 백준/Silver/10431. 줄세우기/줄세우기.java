@@ -16,19 +16,24 @@ class Main {
             int t = Integer.parseInt(st.nextToken());
 
             List<Integer> line = new ArrayList<>();
-            for (int i=0; i<20; i++) {
-                line.add(Integer.parseInt(st.nextToken())); 
-            }
-
+            
             int answer = 0;
+
+            line.add(Integer.parseInt(st.nextToken()));
             for (int i=1; i<20; i++) {
-                for (int j=0; j<i; j++) {
-                    if (line.get(j) > line.get(i)) {
-                        int height = line.remove(i);
-                        line.add(j, height);
+                int currentHeight = Integer.parseInt(st.nextToken());
+
+                int j=0;
+                for (; j<i; j++) {
+                    if (line.get(j) > currentHeight) {
                         answer += (i-j);
+                        line.add(j,currentHeight);
                         break;
                     }
+                }
+                
+                if (j==i) {
+                    line.add(i, currentHeight);
                 }
             }
             
