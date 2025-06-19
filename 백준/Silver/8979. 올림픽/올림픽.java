@@ -63,11 +63,12 @@ class Main {
 
             if (previous != null) {
                 if ((previous.gold != current.gold) || (previous.silver != current.silver) || (previous.bronze != current.bronze)) {
-                    rank++;
+                    rank = N-pq.size(); // 1등, 공동 2등 다음은 4등
                 }
             }
 
             if (current.nation == K) {
+
                 break;
             }
 
