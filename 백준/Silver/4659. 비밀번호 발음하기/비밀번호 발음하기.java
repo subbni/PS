@@ -20,13 +20,11 @@ class Main {
 
             if (isEndCondition(password)) break;
 
-            if (!checkHasMustHaveAlphabet(password)) { // 조건 1
+            if (!hasVowel(password)) { // 조건 1
                 isValidPassword = false;
-            }
-            if (!checkVowelAndConsonantInRow(password)) { // 조건 2
+            } else if (!noThreeInRow(password)) { // 조건 2
                 isValidPassword = false;
-            }
-            if (!checkSameAlphabetInRow(password)) { // 조건 3
+            } else if (!noInvalidRepeat(password)) { // 조건 3
                 isValidPassword = false;
             }
 
@@ -39,52 +37,44 @@ class Main {
         System.out.print(sb);
     }
 
-    public static boolean isEndCondition(String input) {
-        if (input.equals("end")) {
-            return true;
+    static boolean isEndCondition(String input) {
+        return "end".equals(input);
+    }
+
+    static boolean hasVowel(String password) {
+        char[] alphabets = password.toCharArray();
+        for (char alphabet : alphabets) {
+            if ("aeiou".indexOf(alphabet) != -1) return true;
         }
         return false;
     }
 
-    public static boolean checkHasMustHaveAlphabet(String password) {
-        String after = password.replaceAll("[aeiou]", "");
-        if (after.length() == password.length()) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean checkVowelAndConsonantInRow(String password) {
-        int maxCntInRow = 3;
+    static boolean noThreeInRow(String password) {
         int cntOfVowel = 0;
         int cntOfConsonant = 0;
-        char[] alphabets = password.toCharArray();
-        for (char alphabet : alphabets) {
-            if (alphabet == 'a' || alphabet == 'e' || alphabet == 'i' || alphabet == 'o' || alphabet == 'u') {
+        for (char alphabet : password.toCharArray()) {
+            if (isVowel(alphabet)) {
                 cntOfVowel++;
                 cntOfConsonant = 0;
             } else {
                 cntOfConsonant++;
                 cntOfVowel = 0;
             }
-            if (cntOfVowel >= maxCntInRow || cntOfConsonant >= maxCntInRow) {
-                return false;
-            }
+            if (cntOfVowel >= 3 || cntOfConsonant >= 3) return false;
         }
         return true;
     }
 
-    public static boolean checkSameAlphabetInRow(String password) {
-        char[] alphabets = password.toCharArray();
-        char prevChar = ' ';
-        for (char alphabet : alphabets) {
-            if (prevChar == alphabet) {
-                if (alphabet != 'e' && alphabet != 'o') {
-                    return false;
-                }
-            } 
-            prevChar = alphabet;
+    static boolean noInvalidRepeat(String password) {
+        for (int i = 1; i<password.length(); i++) {
+            char prev = password.charAt(i-1);
+            char cur = password.charAt(i);
+            if (prev == cur && cur != 'e' && cur != 'o') return false;
         }
-        return true;
+            return true;
+    }
+
+    static boolean isVowel(char c) {
+        return "aeiou".indexOf(c) != -1;
     }
 }
