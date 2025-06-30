@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 // r = 31, M = 1234567891 일 때, 
 // ( 정수(ex. a=1) * r^항의 번호 ) mod M
 
+// 단순 구현 문제 but 변수 범위 유의
+
 class Main {
     public static void main(String[] args) throws IOException {
         int r = 31;
@@ -18,11 +20,14 @@ class Main {
         String input = br.readLine();
 
         long answer = 0L;
+        long pow = 1L;
+
         for (int i=0; i<length; i++) {
-            answer += (input.charAt(i)-'a'+1) * Math.pow(r, i);
+            int value = (input.charAt(i)-'a'+1);
+            answer = (answer + ((value * pow) % M)) % M;
+            pow = (pow * r) % M;
         }
 
-        answer = answer % M;
         System.out.println(answer);
     }
 }
