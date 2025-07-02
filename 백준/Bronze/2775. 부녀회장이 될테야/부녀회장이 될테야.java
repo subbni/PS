@@ -19,32 +19,30 @@ import java.io.InputStreamReader;
 // 3층 3호는 2층의 (1+2+3)호 = 1+4+10 = 15
 
 class Main {
-    static int[][] requiredPeoples;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        for (int i=0; i<T; i++) {
+        for (int t=0; t<T; t++) {
             int floor = Integer.parseInt(br.readLine());
             int unit = Integer.parseInt(br.readLine());
-            requiredPeoples = new int[floor+1][unit+1];
-            int requiredPeople = getRequiredPeople(floor, unit);
-            sb.append(requiredPeople+"\n");
+            int[][] requiredPeoples = new int[floor+1][unit+1];
+
+            // 0층 초기화
+            for (int i=1; i<=unit; i++) {
+                requiredPeoples[0][i] = i;
+            }
+
+            for (int i=1; i<=floor; i++) {
+                for (int j=1; j<=unit; j++) {
+                    requiredPeoples[i][j] = requiredPeoples[i][j-1] + requiredPeoples[i-1][j];
+                }
+            }
+
+            sb.append(requiredPeoples[floor][unit]+"\n");
         }
 
         System.out.println(sb);
-    }
-
-    public static int getRequiredPeople(int floor, int unit) {
-        if (floor == 1) return unit * (unit+1) / 2;
-        if (requiredPeoples[floor][unit]!=0) return requiredPeoples[floor][unit];
-
-        int sum = 0;
-        for (int i=1; i<=unit; i++) {
-            sum += getRequiredPeople(floor-1, i);
-        }
-
-        return requiredPeoples[floor][unit] = sum;
     }
 }
