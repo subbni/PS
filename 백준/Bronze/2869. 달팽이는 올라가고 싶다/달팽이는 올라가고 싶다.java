@@ -14,9 +14,9 @@ class Main {
         int B = Integer.parseInt(st.nextToken());
         int V = Integer.parseInt(st.nextToken());
         
-        int answer = (V-A) / (A-B);
-        if ((V-A) % (A-B) != 0) answer++;
+        int answer = (V-B) / (A-B);
+        if ((V-B) % (A-B) != 0) answer++;
 
-        System.out.println(answer+1);
+        System.out.println(answer);
     }
 }
